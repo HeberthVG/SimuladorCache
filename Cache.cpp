@@ -20,6 +20,7 @@ int main() {
 
     unsigned int dir, maskIndex, maskBO, maskTag;
     int i, j;
+    //tanCache, tamB y asoc deberían ser definidos por argumentos al compilar el programa
     int tamCache=256, tamB=32, numB, asoc = 1, bBoffset, bindex, btag, sets, hit, miss;
     char tipo;
 
@@ -51,10 +52,17 @@ int main() {
     i = 0;
     hit = 0;
     miss = 0;
-    while (i<20) { //Para probar con las primeras 20 lineas
+    ////////////////////////////////////////////////////////////////////////////////
+    //Para que lea todo el archivo
+    //ATENCION: DURA MUCHO
+    //Comentarlo si se quiere leer solo una parte
+    ///////////////////////////////////////////////////////////////////////////////
+    //while (!inst.eof()) {
+    //Para probar con las primeras 100 lineas
+    while (i<100) {
         i++;
         inst >> hex >> dir;
-        cout << "Direccion: " << dir;
+        cout << i << ". Direccion: " << dir;
 
         cout << " Byte-offset: ";
         Boffset = dir & maskBO;
@@ -74,11 +82,11 @@ int main() {
         if (tag==cache[index][Boffset]) {
             hit++;
         }
-        //Si el tag no coincide trae las otras instrucciones al cache, desde el bloque indicado por BO al 0
+        //Si el tag no coincide trae todo un nuevo bloque al cache
         else {
             miss++;
-            for (j=0; j<=Boffset; j++) {
-                cache[index][Boffset-j] = tag;
+            for (j=0; j<=maskBO; j++) {
+                cache[index][j] = tag;
             }
         }
     }
