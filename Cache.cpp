@@ -13,27 +13,31 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
+#include <ctime>
+#include <cstdlib>
 
 using namespace std;
 
 int main() {
 
     unsigned int dir, maskIndex, maskBO, maskTag;
-    int i, j;
+    int i, j, k, remp;
     //tanCache, tamB y asoc deberían ser definidos por argumentos al compilar el programa
-    int tamCache=256, tamB=32, numB, asoc = 1, bBoffset, bindex, btag, sets, hit, miss;
+    int tamCache=256, tamB=32, numB, asoc = 1, bBoffset, bindex, btag, sets, hit, miss, tamLinea;
     char tipo;
+    bool nohit;
 
     //Parametros del cache
     numB = tamCache/tamB;
     bBoffset = log2(tamB);
     sets = numB/asoc;
+    tamLinea = tamB*asoc;
     bindex = log2(sets);
     btag = 32 - bindex - bBoffset;
 
     //cout << "btag " << btag << " bindex " << bindex << " bBoffset " << bBoffset << endl;
     int Boffset, tag, index;
-    int cache[numB][tamB];
+    int cache[sets][tamLinea];
     ifstream inst("aligned.trace");
 
     //Inicializar cache
@@ -52,14 +56,15 @@ int main() {
     i = 0;
     hit = 0;
     miss = 0;
+    srand(time(0));
     ////////////////////////////////////////////////////////////////////////////////
     //Para que lea todo el archivo
     //ATENCION: DURA MUCHO
     //Comentarlo si se quiere leer solo una parte
     ///////////////////////////////////////////////////////////////////////////////
     //while (!inst.eof()) {
-    //Para probar con las primeras 100 lineas
-    while (i<100) {
+    //Para probar con las primeras 1000 lineas
+    while (i<1000) {
         i++;
         inst >> hex >> dir;
         cout << i << ". Direccion: " << dir;
@@ -79,14 +84,20 @@ int main() {
         inst >> tipo;
         cout << " Tipo: " << tipo << endl;
 
-        if (tag==cache[index][Boffset]) {
-            hit++;
+        nohit = true;
+        for(k=0; k<asoc; k++) {//Revisa si el tag coincide con todos los posible campos
+            if (tag==cache[index][Boffset+32*k]) {
+                hit++;
+                nohit = false;
+                break;
+            }
         }
         //Si el tag no coincide trae todo un nuevo bloque al cache
-        else {
+        if(nohit) {
             miss++;
+            remp = rand()%asoc;
             for (j=0; j<=maskBO; j++) {
-                cache[index][j] = tag;
+                cache[index][j+32*remp] = tag;  //Reemplaza uno de los bloques al azar
             }
         }
     }
