@@ -1,14 +1,14 @@
 /*
     Universidad de Costa Rica
-    Escuela de Ingeniería Eléctrica
+    Escuela de IngenierÃ­a ElÃ©ctrica
     Estructuras de Computadoras Digitales II
     IE-0521
     Tarea Programada 1
-    Carlos Solano       B3.... (Se me olvidó su carné xD)
+    Carlos Solano       B36685
     Heberth Valverde    B37174
 */
 
-// Simulador de una memoria caché
+// Simulador de una memoria cachÃ©
 
 #include <iostream>
 #include <fstream>
@@ -22,7 +22,7 @@ int main() {
 
     unsigned int dir, maskIndex, maskBO, maskTag;
     int i, j, k, remp;
-    //tanCache, tamB y asoc deberían ser definidos por argumentos al compilar el programa
+    //tanCache, tamB y asoc deberÃ­an ser definidos por argumentos al compilar el programa
     int tamCache=256, tamB=32, numB, asoc = 1, bBoffset, bindex, btag, sets, hit, miss, tamLinea;
     char tipo;
     bool nohit;
