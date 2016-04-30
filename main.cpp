@@ -5,7 +5,7 @@ using namespace std;
 int main(int argc, char* argv[]) {
     
     unsigned int dir, maskIndex, maskBO, maskTag;
-    int i, j, k, remp;
+    int i, k, remp;
     
     //tanCache, tamB y asoc deberían ser definidos por argumentos al compilar el programa
     int tamCache=256, tamB=32, numB, asoc = 1, bBoffset, bindex, btag, sets;
@@ -71,25 +71,54 @@ int main(int argc, char* argv[]) {
         cout << " Tipo: " << tipo << endl;
         
         nohit = true;
-        for(k=0; k<asoc; k++) {//Revisa si el tag coincide con todos los posible campos
-            if (tag==newCache.read(index, k).tag) {
-                newCache.hitp();
-                nohit = false;
+        
+        switch (tipo) {
+            case 'L':
+                for(k=0; k<asoc; k++) {
+                    //Revisa si el tag coincide con todos los posible campos
+                    if (tag==newCache.read(index, k).tag) {
+                        newCache.hitRp();
+                        nohit = false;
+                        break;
+                    }
+                }
+                //Si el tag no coincide trae todo un nuevo bloque al cache
+                if(nohit) {
+                    newCache.missRp();
+                    remp = rand()%asoc;
+                    newCache.write(index, remp, tag);
+                    //Reemplaza uno de los bloques al azar
+                }
                 break;
-            }
+            case 'S':
+                for(k=0; k<asoc; k++) {
+                    //Revisa si el tag coincide con todos los posible campos
+                    if (tag==newCache.read(index, k).tag) {
+                        newCache.hitWp();
+                        nohit = false;
+                        break;
+                    }
+                }
+                //Si el tag no coincide entonces se escribe en memoria.
+                if(nohit) {
+                    newCache.missWp();
+                    remp = rand()%asoc;
+                    newCache.write(index, remp, tag);
+                    //Reemplaza uno de los bloques al azar
+                }
+                break;
+                
+            default:
+                break;
         }
-        //Si el tag no coincide trae todo un nuevo bloque al cache
-        if(nohit) {
-            newCache.missp();
-            remp = rand()%asoc;
-            for (j=0; j<=maskBO; j++) {
-                newCache.write(index, remp, tag);  //Reemplaza uno de los bloques al azar
-            }
-        }
+        
+        
     }
     
-    cout << "Catidad de hits: " << newCache.gethit() << endl;
-    cout << "Cantidad de misses: " << newCache.getmiss() << endl;
+    cout << "Catidad de hits por reads: " << newCache.gethitR() << endl;
+    cout << "Cantidad de misses por reads: " << newCache.getmissR() << endl;
+    cout << "Catidad de hits por writes: " << newCache.gethitW() << endl;
+    cout << "Cantidad de misses por writes: " << newCache.getmissW() << endl;
     inst.close();
     return 0;
 }

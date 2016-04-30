@@ -23,17 +23,21 @@ public:
     //Lee el bloque.
     void write(int index, int asoc, int tag);
     //Escribe en un bloque en la dirección dir.
-    void hitp();
-    void missp();
+    void hitRp();
+    void missRp();
+    void hitWp();
+    void missWp();
     //Incrementa el contador del miss o el hit
-    int gethit();
-    int getmiss();
+    int gethitR();
+    int getmissR();
+    int gethitW();
+    int getmissW();
     //Devuelve la cantidad de hit o miss.
     
 	
 	
 private:
-	int blockSize, cacheSize, bNum, asoc, bsets, hit, miss, boffset, bindex, btag;
+	int blockSize, cacheSize, bNum, asoc, bsets, hitR, missR, hitW, missW, boffset, bindex, btag;
 	block *mem;
     block **mema;
 };

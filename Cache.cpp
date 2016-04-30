@@ -42,8 +42,10 @@ Cache::Cache(int bS, int S, int as)
     }
     else this->bsets=bNum;
     //Inicializa los contadores de misses y hits.
-    this->hit=0;
-    this->miss=0;
+    this->hitR=0;
+    this->missR=0;
+    this->hitW=0;
+    this->missW=0;
     //Cantidad de bits necesarios por bloque.
     this->boffset=log2(bS);
     this->bindex=log2(bsets);
@@ -75,17 +77,30 @@ void Cache::write(int index, int asoc, int tag){
 }
 
 
-void Cache::hitp(){
-    this->hit++;
+void Cache::hitRp(){
+    this->hitR++;
 }
-void Cache::missp(){
-    this->miss++;
+void Cache::missRp(){
+    this->missR++;
 }
-int Cache::gethit(){
-    return this->hit;
+void Cache::hitWp(){
+    this->hitW++;
 }
-int Cache::getmiss(){
-    return this->miss;
+void Cache::missWp(){
+    this->missW++;
+}
+
+int Cache::gethitR(){
+    return this->hitR;
+}
+int Cache::getmissR(){
+    return this->missR;
+}
+int Cache::gethitW(){
+    return this->hitW;
+}
+int Cache::getmissW(){
+    return this->missW;
 }
 
 /*
