@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int main() {
+int main(int argc, char* argv[]) {
     
     unsigned int dir, maskIndex, maskBO, maskTag;
     int i, j, k, remp;
@@ -10,6 +10,14 @@ int main() {
     int tamCache=256, tamB=32, numB, asoc = 1, bBoffset, bindex, btag, sets, hit, miss, tamLinea;
     char tipo;
     bool nohit;
+    
+    /*
+    try {
+        asoc=atoi(argv[0]);
+        tamCache=atoi(argv[1]);
+        tamB=atoi(argv[2]);
+    } catch (...){}
+    */
     
     //Parametros del cache
     numB = tamCache/tamB;
