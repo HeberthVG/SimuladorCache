@@ -8,7 +8,7 @@
 #define CACHE_H
 
 struct block{
-    int Boffset, tag, index, data;
+    int tag;
 };
 
 class Cache{
@@ -17,16 +17,23 @@ public:
 	///
 	Cache(int blockSize, int CSize, int asoc);
 	///constructor de copia.
-	~Cache();
+	//~Cache();
 	///destructor del objeto.
-    block read(int dir);
-    //Lee el bloque en la dirección dir.
-    void write(int dir);
+    block read(int index, int asoc);
+    //Lee el bloque.
+    void write(int index, int asoc, int tag);
     //Escribe en un bloque en la dirección dir.
+    void hitp();
+    void missp();
+    //Incrementa el contador del miss o el hit
+    int gethit();
+    int getmiss();
+    //Devuelve la cantidad de hit o miss.
+    
 	
 	
 private:
-	int blockSize, cacheSize, bNum, asoc, sets, hit, miss;
+	int blockSize, cacheSize, bNum, asoc, bsets, hit, miss, boffset, bindex, btag;
 	block *mem;
     block **mema;
 };

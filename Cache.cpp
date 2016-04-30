@@ -22,7 +22,7 @@ using namespace std;
 	this->bNum=S/bS;
      
      mem=new block [bNum];
-     block l={0, 0, 0, 0};
+     block l={0};
      //Inicializar cache
      for(int a=0;a<bNum;a++)
      {
@@ -32,30 +32,60 @@ using namespace std;
 
 Cache::Cache(int bS, int S, int as)
 {
+    //Parametros del cache.
     this->blockSize=bS;
     this->cacheSize=S;
     this->bNum=S/bS;
     this->asoc=as;
-    this->sets=bNum/as;
+    if(asoc>0){
+        this->bsets=bNum/as;
+    }
+    else this->bsets=bNum;
+    //Inicializa los contadores de misses y hits.
+    this->hit=0;
+    this->miss=0;
+    //Cantidad de bits necesarios por bloque.
+    this->boffset=log2(bS);
+    this->bindex=log2(bsets);
+    this->btag=bS-bindex-boffset;
     
-    mema=new block *[sets];
-    for(int a=0;a<sets;a++)
+    //Se crea la matriz.
+    mema=new block *[bsets];
+    for(int a=0;a<bsets;a++)
     {
         mema[a]=new block[as];
     }
-    //Inicializar cached
-    block l={0, 0, 0, 0};
-    for(int a=0;a<bNum;a++)
-    {
-        this->mem[a]= l;
-    }
-    for(int a=0;a<sets;a++)
+    
+    //Inicializar cache.
+    block l={0};
+    for(int a=0;a<bsets;a++)
     {
         for(int b=0;b<as;b++)
         {
             this->mema[a][b]=l;
         }
     }
+}
+
+block Cache::read(int index, int asoc){
+    return this->mema[index][asoc];
+}
+void Cache::write(int index, int asoc, int tag){
+    this->mema[index][asoc].tag=tag;
+}
+
+
+void Cache::hitp(){
+    this->hit++;
+}
+void Cache::missp(){
+    this->miss++;
+}
+int Cache::gethit(){
+    return this->hit;
+}
+int Cache::getmiss(){
+    return this->miss;
 }
 
 /*
