@@ -6,24 +6,27 @@ int main(int argc, char* argv[]) {
     
     unsigned int dir, maskIndex, maskBO, maskTag;
     int i, j, k, remp;
+    
     //tanCache, tamB y asoc deberían ser definidos por argumentos al compilar el programa
     int tamCache=256, tamB=32, numB, asoc = 1, bBoffset, bindex, btag, sets;
     char tipo;
     bool nohit;
+    
+    cout << "Numero " << argv[1] << endl;
+    
+    try {
+        asoc=atoi(argv[1]);
+        tamCache=atoi(argv[2]);
+        tamB=atoi(argv[3]);
+    } catch (...) {
+        return 1;
+    }
     
     numB = tamCache/tamB;
     bBoffset = log2(tamB);
     sets = numB/asoc;
     bindex = log2(sets);
     btag = 32 - bindex - bBoffset;
-    
-    /*
-     try {
-     asoc=atoi(argv[0]);
-     tamCache=atoi(argv[1]);
-     tamB=atoi(argv[2]);
-     } catch (...){}
-     */
     
     Cache newCache(tamB, tamCache, asoc);
     //Se crea un nuevo cache.
