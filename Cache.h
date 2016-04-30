@@ -1,3 +1,9 @@
+#include <iostream>
+#include <fstream>
+#include <cmath>
+#include <ctime>
+#include <cstdlib>
+
 #ifndef CACHE_H
 #define CACHE_H
 
@@ -13,6 +19,10 @@ public:
 	///constructor de copia.
 	~Cache();
 	///destructor del objeto.
+    block read(int dir);
+    //Lee el bloque en la dirección dir.
+    void write(int dir);
+    //Escribe en un bloque en la dirección dir.
 	
 	
 private:

@@ -23,7 +23,7 @@ all: $(TARGET)
 $(TARGET):
 $(TARGET) : $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -c
-	$(CC) $(CFLAGS) -o $(TARGET) Cache.cpp $(CMP)
+	$(CC) $(CFLAGS) -o $(TARGET) main.cpp $(CMP)
 
 
 #Al digitar make clean se borraran todos los archivos compilados,

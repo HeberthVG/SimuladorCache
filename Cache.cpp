@@ -11,11 +11,6 @@
 // Simulador de una memoria caché
 
 #include "Cache.h"
-#include <iostream>
-#include <fstream>
-#include <cmath>
-#include <ctime>
-#include <cstdlib>
 
 using namespace std;
 
@@ -63,6 +58,7 @@ Cache::Cache(int bS, int S, int as)
     }
 }
 
+/*
 int main() {
 
     unsigned int dir, maskIndex, maskBO, maskTag;
@@ -152,3 +148,4 @@ int main() {
     inst.close();
     return 0;
 }
+*/
