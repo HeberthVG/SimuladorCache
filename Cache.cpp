@@ -10,6 +10,7 @@
 
 // Simulador de una memoria caché
 
+#include "Cache.h"
 #include <iostream>
 #include <fstream>
 #include <cmath>
@@ -17,6 +18,50 @@
 #include <cstdlib>
 
 using namespace std;
+
+
+ Cache::Cache(int bS, int S)
+ {
+	this->blockSize=bS;
+	this->cacheSize=S;
+	this->bNum=S/bS;
+     
+     mem=new block [bNum];
+     block l={0, 0, 0, 0};
+     //Inicializar cache
+     for(int a=0;a<bNum;a++)
+     {
+         this->mem[a]= l;
+     }
+ }
+
+Cache::Cache(int bS, int S, int as)
+{
+    this->blockSize=bS;
+    this->cacheSize=S;
+    this->bNum=S/bS;
+    this->asoc=as;
+    this->sets=bNum/as;
+    
+    mema=new block *[sets];
+    for(int a=0;a<sets;a++)
+    {
+        mema[a]=new block[as];
+    }
+    //Inicializar cached
+    block l={0, 0, 0, 0};
+    for(int a=0;a<bNum;a++)
+    {
+        this->mem[a]= l;
+    }
+    for(int a=0;a<sets;a++)
+    {
+        for(int b=0;b<as;b++)
+        {
+            this->mema[a][b]=l;
+        }
+    }
+}
 
 int main() {
 
