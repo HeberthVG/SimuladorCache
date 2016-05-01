@@ -29,5 +29,5 @@ $(TARGET) : $(OBJS)
 #Al digitar make clean se borraran todos los archivos compilados,
 #note e l −f en rm, s i no sabe para que sirve use e l manual de rm.
 clean:
-	rm -f ∗.o *.gch $(CMP)
-	rm -f ∗.o *.gch $(TARGET)
+	rm -rf ∗.o *.gch *.dSYM $(CMP)
+	rm -rf ∗.o *.gch *.dSYM $(TARGET)

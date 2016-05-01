@@ -48,25 +48,25 @@ int main(int argc, char* argv[]) {
     ///////////////////////////////////////////////////////////////////////////////
     //while (!inst.eof()) {
     //Para probar con las primeras 1000 lineas
-    while (i<1000) {
+    while (!inst.eof()) {
         i++;
         inst >> hex >> dir;
-        cout << i << ". Direccion: " << dir;
+         //cout << i << ". Direccion: " << dir;
         
-        cout << " Byte-offset: ";
+         //cout << " Byte-offset: ";
         Boffset = dir & maskBO;
-        cout << Boffset;
+         //cout << Boffset;
         
-        cout << " Index: ";
+         //cout << " Index: ";
         index = (dir & maskIndex) / pow(2,bBoffset);
-        cout << index;
+         //cout << index;
         
-        cout << " Tag: ";
+         //cout << " Tag: ";
         tag = (dir & maskTag) / pow(2,bBoffset+bindex);
-        cout << tag;
+         //cout << tag;
         
         inst >> tipo;
-        cout << " Tipo: " << tipo << endl;
+         //cout << " Tipo: " << tipo << endl;
         
         nohit = true;
         
