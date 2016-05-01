@@ -126,7 +126,7 @@ int main(int argc, char* argv[]) {
     cout << "Miss rate total: " << missrateT << "%. "<< endl;
     //Escribe el resultado en consola.
     
-    ofstream outputFile("CacheResults.txt");
+    ofstream outputFile("CacheResults_"+to_string(asoc)+"-"+ to_string(tamCache)+"-" +to_string(tamB)+".txt");
     outputFile << "Resultados de un cache con: " << "\n\t*tamaño de cache: " << tamCache << " \n\t*tamaño de bloque: " << tamB << " \n\t*asociatividad: "<< asoc << " way.\n" << endl;
     outputFile << "Catidad de hits por reads: " << newCache.gethitR() << endl;
     outputFile << "Cantidad de misses por reads: " << newCache.getmissR() << endl;
