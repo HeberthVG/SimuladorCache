@@ -51,22 +51,22 @@ int main(int argc, char* argv[]) {
     while (!inst.eof()) {
         i++;
         inst >> hex >> dir;
-         //cout << i << ". Direccion: " << dir;
+        //cout << i << ". Direccion: " << dir;
         
-         //cout << " Byte-offset: ";
+        //cout << " Byte-offset: ";
         Boffset = dir & maskBO;
-         //cout << Boffset;
+        //cout << Boffset;
         
-         //cout << " Index: ";
+        //cout << " Index: ";
         index = (dir & maskIndex) / pow(2,bBoffset);
-         //cout << index;
+        //cout << index;
         
-         //cout << " Tag: ";
+        //cout << " Tag: ";
         tag = (dir & maskTag) / pow(2,bBoffset+bindex);
-         //cout << tag;
+        //cout << tag;
         
         inst >> tipo;
-         //cout << " Tipo: " << tipo << endl;
+        //cout << " Tipo: " << tipo << endl;
         
         nohit = true;
         
@@ -113,17 +113,28 @@ int main(int argc, char* argv[]) {
         
     }
     
+    float missrateR=100*((float)newCache.getmissR()/((float)newCache.getmissR()+(float)newCache.gethitR()));
+    float missrateW=100*(float)newCache.getmissW()/((float)newCache.getmissW()+(float)newCache.gethitW());
+    float missrateT=100*((float)newCache.getmissR()+(float)newCache.getmissW())/((float)newCache.getmissR()+(float)newCache.gethitR()+(float)newCache.getmissW()+(float)newCache.gethitW());
+    
     cout << "Catidad de hits por reads: " << newCache.gethitR() << endl;
     cout << "Cantidad de misses por reads: " << newCache.getmissR() << endl;
     cout << "Catidad de hits por writes: " << newCache.gethitW() << endl;
     cout << "Cantidad de misses por writes: " << newCache.getmissW() << endl;
+    cout << "Miss rate por reads: " << missrateR << "%. "<< endl;
+    cout << "Miss rate por writes: " << missrateW << "%. "<< endl;
+    cout << "Miss rate total: " << missrateT << "%. "<< endl;
+    //Escribe el resultado en consola.
     
     ofstream outputFile("CacheResults.txt");
-    outputFile << "Resultados de un cache con: " << " *tamaño de cache: " << tamCache << " *tamaño de bloque: " << tamB << " *asociatividad: "<< asoc << "-way." << endl;
+    outputFile << "Resultados de un cache con: " << "\n\t*tamaño de cache: " << tamCache << " \n\t*tamaño de bloque: " << tamB << " \n\t*asociatividad: "<< asoc << " way.\n" << endl;
     outputFile << "Catidad de hits por reads: " << newCache.gethitR() << endl;
     outputFile << "Cantidad de misses por reads: " << newCache.getmissR() << endl;
     outputFile << "Catidad de hits por writes: " << newCache.gethitW() << endl;
     outputFile << "Cantidad de misses por writes: " << newCache.getmissW() << endl;
+    outputFile << "Miss rate por reads: " << missrateR << "%. "<< endl;
+    outputFile << "Miss rate por writes: " << missrateW << "%. "<< endl;
+    outputFile << "Miss rate total: " << missrateT << "%. "<< endl;
     //Escribe el resultado en un archivo de texto.
     
     inst.close();
