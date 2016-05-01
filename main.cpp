@@ -12,8 +12,6 @@ int main(int argc, char* argv[]) {
     char tipo;
     bool nohit;
     
-    cout << "Numero " << argv[1] << endl;
-    
     try {
         asoc=atoi(argv[1]);
         tamCache=atoi(argv[2]);
@@ -119,6 +117,16 @@ int main(int argc, char* argv[]) {
     cout << "Cantidad de misses por reads: " << newCache.getmissR() << endl;
     cout << "Catidad de hits por writes: " << newCache.gethitW() << endl;
     cout << "Cantidad de misses por writes: " << newCache.getmissW() << endl;
+    
+    ofstream outputFile("CacheResults.txt");
+    outputFile << "Resultados de un cache con: " << " *tamaño de cache: " << tamCache << " *tamaño de bloque: " << tamB << " *asociatividad: "<< asoc << "-way." << endl;
+    outputFile << "Catidad de hits por reads: " << newCache.gethitR() << endl;
+    outputFile << "Cantidad de misses por reads: " << newCache.getmissR() << endl;
+    outputFile << "Catidad de hits por writes: " << newCache.gethitW() << endl;
+    outputFile << "Cantidad de misses por writes: " << newCache.getmissW() << endl;
+    //Escribe el resultado en un archivo de texto.
+    
     inst.close();
+    outputFile.close();
     return 0;
 }
