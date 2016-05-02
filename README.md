@@ -19,10 +19,12 @@ REQUIREMENTS:
     -make
 
 INSTALL:
+
     $ cd SimuladorCache
     $ make
 
 RUN:
+
     All parameters are ints.
     $ ./Run  <associativity [bytes]>  <cache size [bytes]> <block size [bytes]>
 
