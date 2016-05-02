@@ -1,6 +1,6 @@
 ***** SimuladorCache *****
 
-A caché simulator that calculates miss rates depending on asociativity, cahce size and block size.
+A caché simulator that calculates miss rates depending on asociativity, cache size and block size.
 
 AUTHORS:
     Carlos Eduardo Solano
