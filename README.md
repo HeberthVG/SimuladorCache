@@ -16,7 +16,7 @@ REQUIREMENTS:
     -C++ compiler g++.
     -iostream, fstream, cmath, ctime, cstdlib libraries.
     -make
-
+    
 INSTALL:
 
     $ cd SimuladorCache
@@ -32,6 +32,10 @@ RUN:
         2 for 2-way associative.
         4 for 4-way associative.
         And so on...
+
+If you get an error ‘to_string’ was not declared in this scope use flag -std=c++0:
+
+    $ g++ -std=c++0x main.cpp Cache.cpp -o Run
 
 USE: 
 
