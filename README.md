@@ -5,7 +5,6 @@ A caché simulator that calculates miss rates depending on asociativity, cache s
 AUTHORS:
 
     Carlos Eduardo Solano
-    
     Heberth Valverde
 
 CHANGELOG:
@@ -28,13 +27,15 @@ RUN:
     All parameters are ints.
     $ ./Run  <associativity [bytes]>  <cache size [bytes]> <block size [bytes]>
 
-*associativity:
-    1 for direct mapping.
-    2 for 2-way associative.
-    4 for 4-way associative.
-    And so on...
+    Associativity:
+        1 for direct mapping.
+        2 for 2-way associative.
+        4 for 4-way associative.
+        And so on...
 
-*example: $ ./Run  1  256000 8
+USE: 
+
+    $ ./Run  1  256000 8
     -Get miss rate for a cache of size 256 kB, block size of 8 B and direct mapping.
 
 NOTE: please put and rename "*.trace" to "memory.trace" into ~/"path-to"/SimuladorCache/
