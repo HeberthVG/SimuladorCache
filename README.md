@@ -4,8 +4,8 @@ A caché simulator that calculates miss rates depending on asociativity, cache s
 
 AUTHORS:
 
-    Carlos Eduardo Solano
-    Heberth Valverde
+    Carlos Eduardo Solano, B36685
+    Heberth Valverde, B37174
 
 CHANGELOG:
 
