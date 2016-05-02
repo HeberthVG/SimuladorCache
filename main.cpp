@@ -12,14 +12,21 @@ int main(int argc, char* argv[]) {
     char tipo;
     bool nohit;
     
-    try {
+    if (argc==1) {
+        cout << "Por favor ingrese los parámetros del caché." << endl;
+        return 1;
+    }
+    if(atoi(argv[1])<1){
+        cout << "No es posible crear un caché con asociatividad 0 o menor." << endl;
+        return 1;
+    }
+    else{
         asoc=atoi(argv[1]);
         tamCache=atoi(argv[2]);
         tamB=atoi(argv[3]);
-    } catch (...) {
-        return 1;
     }
     
+    //Parámetros del caché
     numB = tamCache/tamB;
     bBoffset = log2(tamB);
     sets = numB/asoc;
@@ -31,7 +38,16 @@ int main(int argc, char* argv[]) {
     
     //cout << "btag " << btag << " bindex " << bindex << " bBoffset " << bBoffset << endl;
     int Boffset, tag, index;
-    ifstream inst("aligned.trace");
+    
+    
+    ifstream inst("memory.trace");
+    if (inst.is_open()) {
+         cout << "Procesando archivo .trace ..." << endl;
+    } else {
+        cout << "No se encuentra el archivo .trace" << endl;
+        return 1;
+    }
+    //Verifica si el archivo .trace se encuentra en el directorio.
     
     //Mascaras para obtener el tag, index y byte-offset de la direccion
     maskBO = pow(2,bBoffset)-1;
@@ -41,13 +57,6 @@ int main(int argc, char* argv[]) {
     //Se inicializan contadores
     i = 0;
     srand(time(0));
-    ////////////////////////////////////////////////////////////////////////////////
-    //Para que lea todo el archivo
-    //ATENCION: DURA MUCHO
-    //Comentarlo si se quiere leer solo una parte
-    ///////////////////////////////////////////////////////////////////////////////
-    //while (!inst.eof()) {
-    //Para probar con las primeras 1000 lineas
     while (!inst.eof()) {
         i++;
         inst >> hex >> dir;
@@ -116,6 +125,7 @@ int main(int argc, char* argv[]) {
     float missrateR=100*((float)newCache.getmissR()/((float)newCache.getmissR()+(float)newCache.gethitR()));
     float missrateW=100*(float)newCache.getmissW()/((float)newCache.getmissW()+(float)newCache.gethitW());
     float missrateT=100*((float)newCache.getmissR()+(float)newCache.getmissW())/((float)newCache.getmissR()+(float)newCache.gethitR()+(float)newCache.getmissW()+(float)newCache.gethitW());
+    //Calcula los miss rate.
     
     cout << "Catidad de hits por reads: " << newCache.gethitR() << endl;
     cout << "Cantidad de misses por reads: " << newCache.getmissR() << endl;

@@ -13,8 +13,6 @@ struct block{
 
 class Cache{
 public:
-	Cache(int blockSize, int CSize);
-	///
 	Cache(int blockSize, int CSize, int asoc);
 	///constructor de copia.
 	//~Cache();
@@ -38,7 +36,8 @@ public:
 	
 private:
 	int blockSize, cacheSize, bNum, asoc, bsets, hitR, missR, hitW, missW, boffset, bindex, btag;
-	block *mem;
+    //Se define los parámetros del cache.
     block **mema;
+    //Se define el espacio en memoria que contiene los bloques.
 };
 #endif
