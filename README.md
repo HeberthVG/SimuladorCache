@@ -2,23 +2,27 @@
 
 A caché simulator that calculates miss rates depending on asociativity, cache size and block size.
 
-*AUTHORS:*
+AUTHORS:
+
     Carlos Eduardo Solano
+    
     Heberth Valverde
 
-*CHANGELOG:*
+CHANGELOG:
+
     -v1: initial release.
 
-*REQUIREMENTS:*
+REQUIREMENTS:
+
     -C++ compiler g++.
     -iostream, fstream, cmath, ctime, cstdlib libraries.
     -make
 
-*INSTALL:*
+INSTALL:
     $ cd SimuladorCache
     $ make
 
-*RUN:*
+RUN:
     All parameters are ints.
     $ ./Run  <associativity [bytes]>  <cache size [bytes]> <block size [bytes]>
 
